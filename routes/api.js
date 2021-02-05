@@ -13,9 +13,10 @@ module.exports = (app) => {
 
   // addExercise(data)
   app.put("/api/workouts/:id", async (req, res) => {
-    const exercise = await db.Workout.updateOne(
+    console.log("put", req.body);
+    const exercise = await db.Workout.findOneAndUpdate(
       { _id: req.params.id },
-      { exercise: req.body.exercise }
+      { exercise: [{ ...req.body.exercise }] }
     ).catch((err) => {
       console.error(err);
       res.json(err);
