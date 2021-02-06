@@ -12,18 +12,21 @@ module.exports = (app) => {
   });
 
   // addExercise(data)
-  app.put("/api/workouts/:id", async ({ body }, res) => {
-    console.log("put", { body });
-    console.log("body", body);
-    const exercise = await db.Workout.findOneAndUpdate(
-      { _id: body.id },
-      { body: body }
-    ).catch((err) => {
-      console.error(err);
-      res.json(err);
-    });
-    console.log("exercise", exercise);
-    res.json(exercise);
+  app.put("/api/workouts/:id", (req, res) => {
+    let id = req.params.id;
+    let body = req.body;
+    db.Workout.findByIdAndUpdate(
+      id,
+      { $push: { exercises: body } },
+      { new: true }
+    )
+      .then((data) => {
+        res.json(data);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(404).json(err);
+      });
   });
 
   // createWorkout(data)
