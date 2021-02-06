@@ -38,12 +38,10 @@ module.exports = (app) => {
   });
 
   // getWorkoutInRange()
-  // app.get("/api/workouts/range", async (req, res) => {
-  //   db.Workout.find({}).sort({ _id: -1 });
-  //   await ((dbWorkout) => {
-  //     res.json(dbWorkout);
-  //   }).catch((err) => {
-  //     res.status(404).json(err);
-  //   });
-  // });
+  app.get("/api/workouts/range", async (_req, res) => {
+    const workout = await db.Workout.find({}).catch((err) => {
+      res.status(404).json(err);
+    });
+    res.json(workout);
+  });
 };
