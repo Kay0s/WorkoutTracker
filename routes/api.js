@@ -12,15 +12,17 @@ module.exports = (app) => {
   });
 
   // addExercise(data)
-  app.put("/api/workouts/:id", async (req, res) => {
-    console.log("put", req.body);
+  app.put("/api/workouts/:id", async ({ body }, res) => {
+    console.log("put", { body });
+    console.log("body", body);
     const exercise = await db.Workout.findOneAndUpdate(
-      { _id: req.params.id },
-      { exercise: [{ ...req.body.exercise }] }
+      { _id: body.id },
+      { body: body }
     ).catch((err) => {
       console.error(err);
       res.json(err);
     });
+    console.log("exercise", exercise);
     res.json(exercise);
   });
 
