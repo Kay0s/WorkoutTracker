@@ -3,11 +3,9 @@ const db = require("../models");
 module.exports = (app) => {
   // getLastWorkout()
   app.get("/api/workouts", async (_req, res) => {
-    const workout = await db.Workout.find({})
-      .sort({ _id: -1 })
-      .catch((err) => {
-        res.status(404).json(err);
-      });
+    const workout = await db.Workout.find({}).catch((err) => {
+      res.status(404).json(err);
+    });
     res.json(workout);
   });
 
