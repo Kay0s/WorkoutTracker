@@ -2,12 +2,13 @@ const express = require("express");
 const compression = require("compression");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+require("dotenv").config();
 // if (process.env.NODE_ENV) {
 //   require("dotenv").config({
 //     path: `${__dirname}/.env.${process.env.NODE_ENV}`,
 //   });
 // } else {
-//   require("dotenv").config();
+
 // }
 
 const PORT = process.env.PORT || 8080;
